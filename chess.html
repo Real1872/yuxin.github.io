@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.11.0/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #board {
+            margin: 20px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chess Game</h1>
+    <div id="board" style="width: 400px"></div>
+    <button id="resetButton">Reset Game</button>
+    <button id="undoButton">Undo Move</button>
+
+    <script>
+        // Initialize the chessboard and game logic
+        const boardConfig = {
+            draggable: true,
+            position: 'start',
+            onDrop: onDrop,
+        };
+
+        const chess = new Chess();
+        const board = Chessboard('board', boardConfig);
+
+        // Handle piece drops
+        function onDrop(source, target) {
+            const move = chess.move({
+                from: source,
+                to: target,
+                promotion: 'q', // Always promote to a queen for simplicity
+            });
+
+            // Illegal move
+            if (move === null) return 'snapback';
+
+            // Update the board position after the move
+            board.position(chess.fen());
+        }
+
+        // Reset button
+        document.getElementById('resetButton').addEventListener('click', () => {
+            chess.reset();
+            board.start();
+        });
+
+        // Undo button
+        document.getElementById('undoButton').addEventListener('click', () => {
+            chess.undo();
+            board.position(chess.fen());
+        });
+    </script>
+</body>
+</html>
