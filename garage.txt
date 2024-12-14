@@ -1,0 +1,1 @@
+        background-image: url('https://img.freepik.com/free-vector/spring-floral-watercolor-background-vector-green-with-leaf-illustration_53876-126350.jpg?t=st=1733248647~exp=1733252247~hmac=8898996e949eb253c1705dd483164d15ce683d7da5c12565c72c5dfbc1cf8a21&w=2000');
